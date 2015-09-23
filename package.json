@@ -1,0 +1,14 @@
+{
+  "name": "super-model",
+  "version": "0.0.1",
+  "description": "Model parsing interface for the masses, also adds fun goodies to existing ORMs/ODMs",
+  "main": "lib/index.js",
+  "scripts": {
+  },
+  "repo": {
+    "type": "git",
+    "url": "https://github.com/SethTippetts/super-model.git"
+  },
+  "author": "Seth Tippetts <sethtippetts@gmail.com> (http://sethtippetts.com)",
+  "license": "ISC"
+}
