@@ -1,6 +1,6 @@
 {
   "name": "super-model",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Model parsing interface for the masses, also adds fun goodies to existing ORMs/ODMs",
   "main": "lib/index.js",
   "scripts": {
