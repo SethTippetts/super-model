@@ -4,7 +4,7 @@ import loadModels from './models';
 import assert from 'assert';
 import debug from 'debug';
 
-let log = debug('super-model');
+let log = debug('supermodel');
 let initialized;
 let configured;
 let initPromise = Promise.fromNode(cb => (initialized = cb));

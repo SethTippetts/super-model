@@ -3,6 +3,9 @@ import path from 'path';
 import Promise from 'bluebird';
 import { merge } from 'lodash';
 import { get, set } from 'object-path';
+import debug from 'debug';
+
+let log = debug('supermodel:models');
 
 const METHODS = [
   // GET
@@ -29,7 +32,6 @@ const METHODS = [
 let passThrough = (data) => Promise.resolve(data);
 
 export default function(config) {
-  console.log('paths', config.dir, '**/*.js');
   var schema = glob
     .sync(path.join(config.dir, '**/*.js'))
     .map(uri => {
@@ -43,21 +45,22 @@ export default function(config) {
       return schema;
     }, {});
 
-  let isFactoryPromise = config.factory.length < 2;
+  let factoryMethod = wrapMethod(config.factory);
 
   let models = Object.keys(schema)
     .map(getModel)
     .map(model => merge({}, config.defaults, setLifecycle(model)))
     .filter(model => model.public !== false)
     .reduce((schema, schemata) => {
-      schema[schemata.identity] = wrapMethod(config.factory)(schemata);
+      schema[schemata.identity] = factoryMethod(schemata);
       return schema;
     }, {});
 
   return Promise.props(models);
 
   function wrapMethod(fn, len=1) {
-    if (len <= fn.length) return Promise.method(fn);
+    log('WRAP METHOD', fn.toString(), fn.length, len);
+    if (fn.length <= len) return Promise.method(fn);
     return (...args) => Promise.fromNode(cb => {
       args.push(cb);
       fn.apply(fn, args);
@@ -88,6 +91,7 @@ export default function(config) {
   }
 
   function execLifecycle(lifecycle, ...args) {
+    log('exec lifecycle %s', lifecycle);
     let [instance] = args;
     if (!instance) instance = args[0] = {};
     if (!lifecycle) lifecycle = () => Promise.resolve(instance);
