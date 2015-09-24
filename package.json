@@ -1,6 +1,6 @@
 {
   "name": "super-model",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Model parsing interface for the masses, also adds fun goodies to existing ORMs/ODMs",
   "main": "lib/index.js",
   "scripts": {
@@ -9,9 +9,9 @@
     "prepublish": "npm run compile",
     "watch": "babel -d lib/ src/ -w"
   },
-  "repo": {
+  "repository": {
     "type": "git",
-    "url": "https://github.com/SethTippetts/super-model.git"
+    "url": "git+https://github.com/SethTippetts/super-model.git"
   },
   "author": "Seth Tippetts <sethtippetts@gmail.com> (http://sethtippetts.com)",
   "license": "ISC",
